@@ -28,3 +28,23 @@ for card in manga_cards:
 
     thumbnail_tag = card.find("a", class_="manga-poster").find("img")
     thumbnail_url = thumbnail_tag["src"]
+
+    genre_tags = card.find("span", class_="fdi-item fdi-cate")
+    genres = [genre.text.strip() for genre in genre_tags.find_all("a")] if genre_tags else []
+
+    latest_chapter_tag = card.find("div", class_="tab-content").find("div", class_="fdl-item")
+    if latest_chapter_tag:
+        chapter_link = latest_chapter_tag.find("a")
+        chapter_title = chapter_link.text.strip()
+        chapter_url = "https://mangareader.to" + chapter_link["href"]
+    else:
+        chapter_title = "N/A"
+        chapter_url = "N/A"
+    
+    print(f"Title: {title}")
+    print(f"URL: {full_url}")
+    print(f"Thumbnail: {thumbnail_url}")
+    print(f"Genres: {genres}")
+    print(f"Latest Chapter: {chapter_title}")
+    print(f"Chapter URL: {chapter_url}")
+    print("-" * 50)
